@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class BuildingRandomCreator {
     private static final int FLOOR_MIN_NUMBER = 5;
-    private static final int FLOOR_MAX_NUMBER = 6; ///////////////////////////////// change to 20
+    private static final int FLOOR_MAX_NUMBER = 6;
     private final FloorRandomCreator floorCreator = new FloorRandomCreator();
     private final LiftCreator liftCreator = new LiftCreator();
 

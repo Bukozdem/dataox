@@ -22,12 +22,11 @@ public class ShowStep {
             if (floor.getFloorNumber() == lift.getCurrentFloor()) {
                 String direction = lift.getDirection() == Direction.UP ? UP : DOWN;
                 sb.append(direction)
-                        .append(lift.getPassengers().stream()
-                                .map(Passenger::getDesiredFloor)
-                                .collect(Collectors.toList()))
+                        .append(padRight(lift.getPassengers().stream()
+                                .map(Passenger::getDesiredFloor).toList().toString(), 15))
                         .append(direction);
             } else {
-                sb.append("                     ");
+                sb.append(padRight(" ", 21));
             }
             sb.append("| ").append(floor.getPassengersIn().stream()
                             .map(Passenger::getDesiredFloor)
@@ -35,5 +34,8 @@ public class ShowStep {
                     .append(System.lineSeparator());
         }
         System.out.println(sb);
+    }
+    private static String padRight(String s, int n) {
+        return String.format("%-" + n + "s", s);
     }
 }
