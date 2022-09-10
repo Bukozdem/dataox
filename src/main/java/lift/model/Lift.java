@@ -1,11 +1,13 @@
 package lift.model;
 
 import lombok.Data;
-import java.util.List;
+import java.util.LinkedList;
 
 @Data
 public class Lift {
     private int capacity;
     private Direction direction;
-    private List<Passenger> passengers;
+    private LinkedList<Passenger> passengers;
+    private int currentFloor;
+    private int runToFloor;
 }

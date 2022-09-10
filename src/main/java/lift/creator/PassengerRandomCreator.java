@@ -1,17 +1,15 @@
-package lift.service;
+package lift.creator;
 
-import lift.model.Floor;
 import lift.model.Passenger;
-
 import java.util.Random;
 
-public class PassengerCreator {
+public class PassengerRandomCreator {
+    private static final int FIRST_FLOOR = 1;
     public Passenger constructPassenger(int floorQuantity, int currentFloor) {
         Passenger passenger = new Passenger();
-        passenger.setCurrentFloor(currentFloor);
         int desiredFloor = currentFloor;
         while (desiredFloor == currentFloor) {
-            desiredFloor = new Random().nextInt(1, floorQuantity);
+            desiredFloor = new Random().nextInt(FIRST_FLOOR, floorQuantity);
         }
         passenger.setDesiredFloor(desiredFloor);
         return passenger;

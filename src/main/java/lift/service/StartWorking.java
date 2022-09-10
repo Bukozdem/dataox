@@ -1,12 +1,12 @@
 package lift.service;
 
-import lift.model.Building;
+import lift.creator.BuildingRandomCreator;
 
 public class StartWorking {
-    private final BuildingCreator buildingCreator = new BuildingCreator();
+    private final BuildingRandomCreator buildingCreator = new BuildingRandomCreator();
+    private final LiftTraffic liftTraffic = new LiftTraffic();
 
     public void liftOff() {
-        Building building = buildingCreator.constructBuilding();
-        System.out.println(building);
+        liftTraffic.run(buildingCreator.constructBuilding());
     }
 }
