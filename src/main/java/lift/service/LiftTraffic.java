@@ -21,11 +21,12 @@ public class LiftTraffic {
             return building;
         }
         Direction direction = building.getLift().getDirection();
-        int currentFloorIndex = building.getLift().getCurrentFloor();
+        int currentFloorIndex = building.getLift().getCurrentFloor() - 1;
         Floor floor = building.getFloors().get(currentFloorIndex);
         LinkedList<Passenger> passengersToGetIn = floor.getPassengersIn();
+        int floorQuantity = building.getFloorQuantity();
         LinkedList<Passenger> suitablePassengers;
-        if (direction == Direction.UP) {
+        if (direction == Direction.UP && currentFloorIndex != floorQuantity - 1) {
             suitablePassengers = passengersToGetIn.stream()
                     .filter(p -> p.getDesiredFloor() > currentFloorIndex + 1)
                     .collect(Collectors.toCollection(LinkedList::new));
@@ -61,6 +62,7 @@ public class LiftTraffic {
             passengerOut++;
             calls--;
         }
+        building.getLift().setCapacity(building.getLift().getCapacity() - passengerOut);
         building.getLift().setPassengers(passengersInLift);
         building.getFloors().get(currentFloorIndex).setPassengersOut(passengerOut);
         building.setCalls(calls);

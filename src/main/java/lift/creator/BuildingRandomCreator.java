@@ -9,7 +9,7 @@ public class BuildingRandomCreator {
     private static final int FLOOR_MIN_NUMBER = 5;
     private static final int FLOOR_MAX_NUMBER = 6; ///////////////////////////////// change to 20
     private final FloorRandomCreator floorCreator = new FloorRandomCreator();
-    private final LiftRandomCreator liftCreator = new LiftRandomCreator();
+    private final LiftCreator liftCreator = new LiftCreator();
 
     public Building constructBuilding() {
         Building building = new Building();
@@ -27,6 +27,4 @@ public class BuildingRandomCreator {
         building.setLift(liftCreator.constructLift());
         return building;
     }
-
-
 }

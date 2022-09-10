@@ -9,5 +9,4 @@ public class Lift {
     private Direction direction;
     private LinkedList<Passenger> passengers;
     private int currentFloor;
-    private int runToFloor;
 }
