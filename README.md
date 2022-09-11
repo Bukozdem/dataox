@@ -9,5 +9,5 @@
 Кожен крок ліфта відображається в консолі.
 
 ###  Запуск програми
-1. Завантажити jar файл програми. Запустити через командний рядок командою «java –jar /шлях до файлу/».
-2. Відкрити IntelliJ IDEA, Git -> Clone -> git@github.com:Bukozdem/dataox.git. Завантажити проект. Запустити клас Main. 
+1. [Завантажити jar файл програми](https://drive.google.com/file/d/1olKgQ3_Ze4hw7W9svqfqNmoTrtxxaEIy/view?usp=sharing). Запустити через командний рядок командою «java –jar /шлях до файлу/».
+2. Відкрити IntelliJ IDEA, Git -> Clone -> URL -> git@github.com:Bukozdem/dataox.git. Завантажити проект. Запустити клас Main. 
