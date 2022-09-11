@@ -25,10 +25,10 @@ class ShowStepImpl implements ShowStep {
                 String direction = lift.getDirection() == Direction.UP ? UP : DOWN;
                 sb.append(direction)
                         .append(padRight(lift.getPassengers().stream()
-                                .map(Passenger::getDesiredFloor).toList().toString(), 17))
+                                .map(Passenger::getDesiredFloor).toList().toString(), 20))
                         .append(direction);
             } else {
-                sb.append(padRight(" ", 23));
+                sb.append(padRight(" ", 26));
             }
             sb.append("| ").append(floor.getPassengersToGetIn().stream()
                             .map(Passenger::getDesiredFloor)
