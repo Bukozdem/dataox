@@ -1,7 +1,6 @@
 package lift.model;
 
 import lombok.Data;
-
 import java.util.LinkedList;
 
 @Data

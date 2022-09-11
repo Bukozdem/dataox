@@ -18,7 +18,7 @@ public class FloorRandomCreator {
         for (int i = 0; i < floor.getPassengerNumber(); i++) {
             passengerList.add(passengerCreator.constructPassenger(floorQuantity, floorNumber));
         }
-        floor.setPassengersIn(passengerList);
+        floor.setPassengersToGetIn(passengerList);
         return floor;
     }
 

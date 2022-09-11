@@ -1,12 +1,14 @@
 package lift.service;
 
-import lift.model.*;
-
+import lift.model.Building;
+import lift.model.Direction;
+import lift.model.Floor;
+import lift.model.Lift;
+import lift.model.Passenger;
 import java.util.Iterator;
-import java.util.List;
 import java.util.stream.Collectors;
 
-public class ShowStep {
+class ShowStep {
     private static final String UP = " ↑ ";
     private static final String DOWN = " ↓ ";
     private int step = 1;
@@ -28,7 +30,7 @@ public class ShowStep {
             } else {
                 sb.append(padRight(" ", 21));
             }
-            sb.append("| ").append(floor.getPassengersIn().stream()
+            sb.append("| ").append(floor.getPassengersToGetIn().stream()
                             .map(Passenger::getDesiredFloor)
                             .collect(Collectors.toList()))
                     .append(System.lineSeparator());
