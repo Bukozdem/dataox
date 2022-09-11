@@ -1,9 +1,9 @@
 package lift;
 
-import lift.service.StartWorking;
+import lift.service.StartWorkingImpl;
 
 public class Main {
-    private static final StartWorking startWorking = new StartWorking();
+    private static final StartWorkingImpl startWorking = new StartWorkingImpl();
     public static void main(String[] args) {
         startWorking.liftOff();
     }
