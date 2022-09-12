@@ -6,6 +6,7 @@ import lift.model.Floor;
 import lift.model.Lift;
 import lift.model.Passenger;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.stream.Collectors;
 
 class ShowStepImpl implements ShowStep {
@@ -14,13 +15,14 @@ class ShowStepImpl implements ShowStep {
     private int step = 1;
     public void toConsole(Building building) {
         StringBuilder sb = new StringBuilder();
-        sb.append("     * * * Step ").append(step++).append(" * * * ").append(System.lineSeparator())
+        sb.append(padRight(" ", 6)).append("* * * Step ").append(step++).append(" * * * ")
+                .append(System.lineSeparator())
                 .append(System.lineSeparator());
-        Iterator<Floor> iterator = building.getFloors().descendingIterator();
+        Iterator<Floor> iterator = ((LinkedList<Floor>)building.getFloors()).descendingIterator();
         Lift lift = building.getLift();
         while (iterator.hasNext()) {
             Floor floor = iterator.next();
-            sb.append(floor.getPassengersOut()).append(" |");
+            sb.append(floor.getPassengersOut()).append("  |");
             if (floor.getFloorNumber() == lift.getCurrentFloor()) {
                 String direction = lift.getDirection() == Direction.UP ? UP : DOWN;
                 sb.append(direction)
@@ -30,7 +32,7 @@ class ShowStepImpl implements ShowStep {
             } else {
                 sb.append(padRight(" ", 26));
             }
-            sb.append("| ").append(floor.getPassengersToGetIn().stream()
+            sb.append("|  ").append(floor.getPassengersToGetIn().stream()
                             .map(Passenger::getDesiredFloor)
                             .collect(Collectors.toList()))
                     .append(System.lineSeparator());
