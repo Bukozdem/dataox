@@ -3,7 +3,10 @@ package lift.creator;
 import lift.model.Floor;
 import lift.model.Passenger;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class FloorRandomCreator {
     private static final int PASSENGER_MIN_NUMBER = 0;
@@ -12,12 +15,11 @@ public class FloorRandomCreator {
 
     public Floor constructFloor(int floorQuantity, int floorNumber) {
         Floor floor = new Floor();
-        floor.setPassengerNumber(new Random().nextInt(PASSENGER_MIN_NUMBER, PASSENGER_MAX_NUMBER));
+        int passengerNumber = new Random().nextInt(PASSENGER_MIN_NUMBER, PASSENGER_MAX_NUMBER);
         floor.setFloorNumber(floorNumber);
-        LinkedList<Passenger> passengerList = new LinkedList<>();
-        for (int i = 0; i < floor.getPassengerNumber(); i++) {
-            passengerList.add(passengerCreator.constructPassenger(floorQuantity, floorNumber));
-        }
+        List<Passenger> passengerList = IntStream.rangeClosed(1, passengerNumber)
+                .mapToObj(n -> passengerCreator.constructPassenger(floorQuantity, floorNumber))
+                .collect(Collectors.toCollection(LinkedList::new));
         floor.setPassengersToGetIn(passengerList);
         return floor;
     }
