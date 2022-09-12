@@ -2,7 +2,6 @@ package lift.service;
 
 import lift.model.Building;
 import lift.model.Passenger;
-import java.util.LinkedList;
 import java.util.List;
 
 class ExitServiceImpl implements ExitService {

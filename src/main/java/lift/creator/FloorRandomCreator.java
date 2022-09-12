@@ -23,6 +23,4 @@ public class FloorRandomCreator {
         floor.setPassengersToGetIn(passengerList);
         return floor;
     }
-
-
 }

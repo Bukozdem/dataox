@@ -23,13 +23,42 @@ class EnterServiceImpl implements EnterService {
             if (passengersToGetIn.isEmpty()) {
                 findNearestFloor(building, currentFloorIndex + 1);
             } else {
-                changeDirectionWhenLifAndFloorIsEmpty(building, passengersToGetIn,
+                changeDirectionWhenLifIsEmpty(building, passengersToGetIn,
                         currentFloorIndex + 1);
             }
         }
+        List<Passenger> suitablePassengers = findSuitablePassengers(building,
+                currentFloorIndex, passengersToGetIn);
+        if (suitablePassengers.isEmpty()) {
+            return building;
+        }
+        return comeIn(passengersInLift, passengersToGetIn, suitablePassengers, freePlacesInLift, currentFloorIndex, building);
+    }
+
+    private Building comeIn(List<Passenger> passengersInLift,
+                            List<Passenger> passengersToGetIn,
+                            List<Passenger> suitablePassengers,
+                            int freePlacesInLift,
+                            int currentFloorIndex,
+                            Building building) {
+        passengersToGetIn.removeAll(suitablePassengers);
+        while (!suitablePassengers.isEmpty() && freePlacesInLift != 0) {
+            passengersInLift.add(((LinkedList<Passenger>) suitablePassengers).poll());
+            freePlacesInLift--;
+        }
+        passengersToGetIn.addAll(suitablePassengers);
+        building.getLift().setCapacity(freePlacesInLift);
+        building.getLift().setPassengers(passengersInLift);
+        building.getFloors().get(currentFloorIndex).setPassengersToGetIn(passengersToGetIn);
+        return building;
+    }
+
+    private List<Passenger> findSuitablePassengers(Building building,
+                                                   int currentFloorIndex,
+                                                   List<Passenger> passengersToGetIn) {
+        List<Passenger> suitablePassengers;
         Direction direction = building.getLift().getDirection();
         int floorQuantity = building.getFloorQuantity();
-        LinkedList<Passenger> suitablePassengers;
         if (direction == Direction.UP && currentFloorIndex != floorQuantity - 1
                 || currentFloorIndex == 0) {
             suitablePassengers = passengersToGetIn.stream()
@@ -40,19 +69,7 @@ class EnterServiceImpl implements EnterService {
                     .filter(p -> p.getDesiredFloor() < currentFloorIndex + 1)
                     .collect(Collectors.toCollection(LinkedList::new));
         }
-        if (suitablePassengers.isEmpty()) {
-            return building;
-        }
-        passengersToGetIn.removeAll(suitablePassengers);
-        while (!suitablePassengers.isEmpty() && freePlacesInLift != 0) {
-            passengersInLift.add(suitablePassengers.poll());
-            freePlacesInLift--;
-        }
-        passengersToGetIn.addAll(suitablePassengers);
-        building.getLift().setCapacity(freePlacesInLift);
-        building.getLift().setPassengers(passengersInLift);
-        building.getFloors().get(currentFloorIndex).setPassengersToGetIn(passengersToGetIn);
-        return building;
+        return suitablePassengers;
     }
 
     private void findNearestFloor(Building building, int currentFloor) {
@@ -80,9 +97,9 @@ class EnterServiceImpl implements EnterService {
         building.getLift().setDirection(newDirection);
     }
 
-    private void changeDirectionWhenLifAndFloorIsEmpty(Building building,
-                                                       List<Passenger> passengersToGetIn,
-                                                       int currentFloor) {
+    private void changeDirectionWhenLifIsEmpty(Building building,
+                                               List<Passenger> passengersToGetIn,
+                                               int currentFloor) {
         double numberOfPassengerToGetDown = passengersToGetIn.stream()
                 .map(Passenger::getDesiredFloor)
                 .filter(f -> f < currentFloor).count();
